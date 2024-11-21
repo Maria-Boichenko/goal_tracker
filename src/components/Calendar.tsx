@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import GoalForm from "./GoalForm";
+import {Goal} from "../types/goals";
+import {Day} from "./Day";
 
 interface CalendarProps {
     onDateClick: (date: string) => void; // Проп для обработки кликов на дату
@@ -26,7 +28,7 @@ export default function Calendar({onDateClick}: CalendarProps) {
     };
 
     // Сохранение цели
-    const saveGoal = (goal: { title: string }) => {
+    const saveGoal = (goal: Goal) => {
         if (!selectedDate) return;
         setGoals((prev) => ({
             ...prev,
@@ -46,22 +48,7 @@ export default function Calendar({onDateClick}: CalendarProps) {
 
             {/* Календарь */}
             <div className="grid grid-cols-7 gap-2 mt-2">
-                {daysInMonth.map((day) => {
-                    const date = `2024-11-${day.toString().padStart(2, "0")}`;
-                    return (
-                        <div
-                            key={day}
-                            className="p-4 border rounded-lg text-gray-800 bg-gray-100 cursor-pointer"
-                            onClick={() => openForm(date)}
-                        >
-                            <div className="font-serif">{day}</div>
-                            {/* Цели для конкретной даты */}
-                            <div className="font-serif text-sm text-blue-500">
-                                {(goals[date] || []).join(", ")}
-                            </div>
-                        </div>
-                    );
-                })}
+                {daysInMonth.map((date) => <Day date={date} goals={goals[date]} openForm={openForm} />)}
             </div>
 
             {/* Модальное окно */}

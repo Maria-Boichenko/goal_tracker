@@ -1,16 +1,10 @@
 import React, {useState} from "react";
+import {Goal} from "../types/goals";
 
 interface GoalFormProps {
     onSave: (goal: Goal) => void;
     onCancel: () => void;
     date: string;
-}
-
-interface Goal {
-    title: string;
-    description: string;
-    category: string;
-    priority: string;
 }
 
 export default function GoalForm({onSave, onCancel}: GoalFormProps) {
