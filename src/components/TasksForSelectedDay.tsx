@@ -1,4 +1,5 @@
 import React from "react";
+
 interface Task {
     title: string;
     priority: "High" | "Medium" | "Low";
@@ -20,7 +21,7 @@ export default function TasksForSelectedDay({
         setTasks((prev) => {
             const updatedTasks = [...(prev[today] || [])];
             updatedTasks.splice(index, 1);
-            return { ...prev, [today]: updatedTasks };
+            return {...prev, [today]: updatedTasks};
         });
     };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Pie } from "react-chartjs-2";
+import {Pie} from "react-chartjs-2";
 import {
     Chart as ChartJS,
     ArcElement,
@@ -25,7 +25,7 @@ const data = {
 export default function PieChart() {
     return (
         <div className="w-full h-full">
-            <Pie data={data} />
+            <Pie data={data}/>
         </div>
     );
 }

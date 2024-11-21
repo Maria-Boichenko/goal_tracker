@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import GoalForm from "./GoalForm";
 
 interface CalendarProps {
     onDateClick: (date: string) => void; // Проп для обработки кликов на дату
 }
-export default function Calendar({ onDateClick }: CalendarProps) {
+
+export default function Calendar({onDateClick}: CalendarProps) {
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const daysInMonth = Array.from({ length: 30 }, (_, i) => i + 1);
+    const daysInMonth = Array.from({length: 30}, (_, i) => i + 1);
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -24,7 +25,7 @@ export default function Calendar({ onDateClick }: CalendarProps) {
         setSelectedDate(null);
     };
 
-     // Сохранение цели
+    // Сохранение цели
     const saveGoal = (goal: { title: string }) => {
         if (!selectedDate) return;
         setGoals((prev) => ({
@@ -53,7 +54,7 @@ export default function Calendar({ onDateClick }: CalendarProps) {
                             className="p-4 border rounded-lg text-gray-800 bg-gray-100 cursor-pointer"
                             onClick={() => openForm(date)}
                         >
-                            <div className="font-serif" >{day}</div>
+                            <div className="font-serif">{day}</div>
                             {/* Цели для конкретной даты */}
                             <div className="font-serif text-sm text-blue-500">
                                 {(goals[date] || []).join(", ")}

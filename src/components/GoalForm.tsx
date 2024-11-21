@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 interface GoalFormProps {
     onSave: (goal: Goal) => void;
@@ -13,7 +13,7 @@ interface Goal {
     priority: string;
 }
 
-export default function GoalForm({ onSave, onCancel }: GoalFormProps) {
+export default function GoalForm({onSave, onCancel}: GoalFormProps) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("Personal");
@@ -21,7 +21,7 @@ export default function GoalForm({ onSave, onCancel }: GoalFormProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSave({ title, description, category, priority });
+        onSave({title, description, category, priority});
     };
 
     return (
@@ -56,7 +56,7 @@ export default function GoalForm({ onSave, onCancel }: GoalFormProps) {
                     className="w-full border border-gray-300 rounded-lg p-2"
                 >
                     <option className="font-serif" value="Health">Health</option>
-                    <option className="font-serif"  value="Work">Work</option>
+                    <option className="font-serif" value="Work">Work</option>
                     <option className="font-serif" value="Personal">Personal</option>
                 </select>
             </div>

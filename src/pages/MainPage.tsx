@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Calendar from "../components/Calendar";
 import LineChart from "../components/LineChart";
 import PieChart from "../components/PieChart";
@@ -8,6 +8,7 @@ interface Task {
     title: string;
     priority: "High" | "Medium" | "Low";
 }
+
 export default function MainPage() {
     // Состояние для всех задач
     const [tasks, setTasks] = useState<Record<string, Task[]>>({});
@@ -29,7 +30,7 @@ export default function MainPage() {
                 ...prev,
                 [selectedDate || new Date().toISOString().split("T")[0]]: [
                     ...(prev[selectedDate || new Date().toISOString().split("T")[0]] || []),
-                    { title, priority: priority as "High" | "Medium" | "Low" },
+                    {title, priority: priority as "High" | "Medium" | "Low"},
                 ],
             }));
         } else {
@@ -46,7 +47,7 @@ export default function MainPage() {
 
             {/* Список задач */}
             <div className="col-span-1 bg-white rounded-lg shadow-md p-4">
-                <TasksForSelectedDay tasks={tasks} setTasks={setTasks} />
+                <TasksForSelectedDay tasks={tasks} setTasks={setTasks}/>
             </div>
 
             {/* Правая колонка (Progress и Analytics) */}
@@ -55,7 +56,7 @@ export default function MainPage() {
                 <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center">
                     <h2 className="text-lg font-bold font-serif mb-2">Progress</h2>
                     <div>
-                        <LineChart />
+                        <LineChart/>
                     </div>
                 </div>
 
@@ -63,7 +64,7 @@ export default function MainPage() {
                 <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center">
                     <h2 className="font-serif text-lg font-bold">Analytics</h2>
                     <div className="flex-grow">
-                        <PieChart />
+                        <PieChart/>
                     </div>
                 </div>
             </div>

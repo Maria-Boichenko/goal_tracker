@@ -8,7 +8,7 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
+import {Line} from "react-chartjs-2";
 
 // Регистрация компонентов Chart.js
 ChartJS.register(
@@ -37,8 +37,8 @@ const data = {
 
 export default function LineChart() {
     return (
-        <div >
-            <Line data={data} options={{ maintainAspectRatio: false }} />
+        <div>
+            <Line data={data} options={{maintainAspectRatio: false}}/>
         </div>
     );
 }

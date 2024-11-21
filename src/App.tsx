@@ -7,8 +7,8 @@ import DarkModeToggle from "./pages/DarkModeToggle";
 function App() {
     return (
         <div>
-            <Home />
-            <DarkModeToggle />
+            <Home/>
+            <DarkModeToggle/>
         </div>
     );
 }
