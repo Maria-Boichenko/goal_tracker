@@ -4,6 +4,7 @@ import LineChart from "../components/LineChart";
 import PieChart from "../components/PieChart";
 import TasksForSelectedDay from "../components/TasksForSelectedDay";
 
+
 interface Task {
     title: string;
     priority: "High" | "Medium" | "Low";
@@ -39,10 +40,12 @@ export default function MainPage() {
     };
 
     return (
-        <div className="grid grid-cols-3 gap-4 p-6 h-screen ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
             {/* Календарь */}
-            <div className="col-span-2 bg-white rounded-lg shadow-md p-4 h-full">
+            <div className="col-span-3 md:col-span-2 bg-white rounded-lg shadow-md p-4">
+
                 <Calendar onDateClick={handleDateClick}/>
+
             </div>
 
             {/* Список задач */}

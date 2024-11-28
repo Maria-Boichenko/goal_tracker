@@ -1,62 +1,67 @@
-import React, {useState} from "react";
+import {  useState } from "react";
 import GoalForm from "./GoalForm";
-import {Goal} from "../types/goals";
-import {Day} from "./Day";
+import { Goal } from "../types/goals";
+import { Day } from "./Day";
+
 
 interface CalendarProps {
     onDateClick: (date: string) => void; // Проп для обработки кликов на дату
 }
 
-export default function Calendar({onDateClick}: CalendarProps) {
-    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const daysInMonth = Array.from({length: 30}, (_, i) => i + 1);
+export default function Calendar({ onDateClick }: CalendarProps) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const daysInCurrentMonth = new Date(year, month, 0).getDate();
+
+    const daysInMonth = Array.from(
+        { length: daysInCurrentMonth },
+        (_, i) => `${year}-${String(month).padStart(2, "0")}-${String(i + 1).padStart(2, "0")}`
+    );
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
-    const [goals, setGoals] = useState<Record<string, string[]>>({});
+    const [goals, setGoals] = useState<Record<string, Goal[]>>({});
 
-    // Открытие формы с установкой выбранной даты
     const openForm = (date: string) => {
         setSelectedDate(date);
         setIsFormOpen(true);
     };
 
-    // Закрытие формы
     const closeForm = () => {
         setIsFormOpen(false);
         setSelectedDate(null);
     };
 
-    // Сохранение цели
     const saveGoal = (goal: Goal) => {
         if (!selectedDate) return;
-        setGoals((prev) => ({
+        setGoals((prev: Record<string, Goal[]>) => ({
             ...prev,
-            [selectedDate]: [...(prev[selectedDate] || []), goal.title],
+            [selectedDate]: [...(prev[selectedDate] || []), goal],
         }));
         closeForm();
     };
 
+
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">
-            {/* Заголовок дней недели */}
             <div className="grid grid-cols-7 gap-2 text-center font-bold text-gray-600">
-                {daysOfWeek.map((day) => (
+                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
                     <div key={day}>{day}</div>
                 ))}
             </div>
 
-            {/* Календарь */}
             <div className="grid grid-cols-7 gap-2 mt-2">
-                {daysInMonth.map((date) => <Day date={date} goals={goals[date]} openForm={openForm} />)}
+                {daysInMonth.map((date) => (
+                    <Day key={date} date={date} goals={goals[date] || []} openForm={openForm} />
+                ))}
             </div>
 
-            {/* Модальное окно */}
             {isFormOpen && selectedDate && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
                         <GoalForm
-                            date={selectedDate} // Передача выбранной даты
+                            date={selectedDate}
                             onSave={saveGoal}
                             onCancel={closeForm}
                         />

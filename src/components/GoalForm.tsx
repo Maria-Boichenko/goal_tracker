@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import {Goal} from "../types/goals";
+import Button from "./Button"
+import Select from "./Select";
 
 interface GoalFormProps {
     onSave: (goal: Goal) => void;
@@ -42,44 +44,34 @@ export default function GoalForm({onSave, onCancel}: GoalFormProps) {
                     className="w-full border border-gray-300 rounded-lg p-2"
                 />
             </div>
-            <div className="mb-4">
-                <label className="font-serif block font-medium mb-2">Category</label>
-                <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg p-2"
-                >
-                    <option className="font-serif" value="Health">Health</option>
-                    <option className="font-serif" value="Work">Work</option>
-                    <option className="font-serif" value="Personal">Personal</option>
-                </select>
-            </div>
-            <div className="mb-4">
-                <label className="font-serif block font-medium mb-2">Priority</label>
-                <select
-                    value={priority}
-                    onChange={(e) => setPriority(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg p-2"
-                >
-                    <option className="font-serif" value="High">High</option>
-                    <option className="font-serif" value="Medium">Medium</option>
-                    <option className="font-serif" value="Low">Low</option>
-                </select>
-            </div>
-            <div className="font-serif flex justify-end">
-                <button
-                    type="button"
-                    onClick={onCancel}
-                    className="mr-4 bg-gray-200 text-gray-700 px-4 py-2 rounded-lg"
-                >
-                    Cancel
-                </button>
-                <button
-                    type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                >
+            <Select
+                value={category}
+                onChange={setCategory}
+                options={[
+                    {value: "Health", label: "Health"},
+                    {value: "Work", label: "Work"},
+                    {value: "Personal", label: "Personal"},
+                ]}
+                label="Category"
+            />
+
+            <Select
+                value={priority}
+                onChange={setPriority}
+                options={[
+                    {value: "High", label:"High"},
+                    {value: "Medium", label: "Medium"},
+                    {value: "Low", label: "Low"},
+            ]}
+            label="Priority"
+            />
+            <div className="font-serif flex justify-end" style={{gap: "12px"}}>
+                <Button variant="secondary" onClick={onCancel}>
+                   Cancel
+               </Button>
+                <Button variant="primary" type="submit">
                     Save
-                </button>
+                </Button>
             </div>
         </form>
     );
