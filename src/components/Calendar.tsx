@@ -2,6 +2,7 @@ import {  useState } from "react";
 import GoalForm from "./GoalForm";
 import { Goal } from "../types/goals";
 import { Day } from "./Day";
+import { useTasks } from "../context/TaskProvider";
 
 
 interface CalendarProps {
@@ -21,12 +22,15 @@ export default function Calendar({ onDateClick }: CalendarProps) {
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
-    const [goals, setGoals] = useState<Record<string, Goal[]>>({});
+    // const [goals, setGoals] = useState<Record<string, Goal[]>>({});
+    const { goals, setGoals } = useTasks();
 
     const openForm = (date: string) => {
-        setSelectedDate(date);
+        const formattedDate = new Date(date).toISOString().split("T")[0]; // Форматирование даты
+        setSelectedDate(formattedDate);
         setIsFormOpen(true);
     };
+
 
     const closeForm = () => {
         setIsFormOpen(false);
@@ -35,12 +39,16 @@ export default function Calendar({ onDateClick }: CalendarProps) {
 
     const saveGoal = (goal: Goal) => {
         if (!selectedDate) return;
-        setGoals((prev: Record<string, Goal[]>) => ({
+
+        const formattedDate = new Date(selectedDate).toISOString().split("T")[0]; // Преобразуем дату в формат YYYY-MM-DD
+
+        setGoals((prev) => ({
             ...prev,
-            [selectedDate]: [...(prev[selectedDate] || []), goal],
+            [formattedDate]: [...(prev[formattedDate] || []), goal],
         }));
         closeForm();
     };
+
 
 
     return (

@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Calendar from "../components/Calendar";
 import LineChart from "../components/LineChart";
 import PieChart from "../components/PieChart";
 import TasksForSelectedDay from "../components/TasksForSelectedDay";
-
 
 interface Task {
     title: string;
@@ -31,7 +30,7 @@ export default function MainPage() {
                 ...prev,
                 [selectedDate || new Date().toISOString().split("T")[0]]: [
                     ...(prev[selectedDate || new Date().toISOString().split("T")[0]] || []),
-                    {title, priority: priority as "High" | "Medium" | "Low"},
+                    { title, priority: priority as "High" | "Medium" | "Low" },
                 ],
             }));
         } else {
@@ -43,14 +42,12 @@ export default function MainPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
             {/* Календарь */}
             <div className="col-span-3 md:col-span-2 bg-white rounded-lg shadow-md p-4">
-
-                <Calendar onDateClick={handleDateClick}/>
-
+                <Calendar onDateClick={handleDateClick} />
             </div>
 
             {/* Список задач */}
             <div className="col-span-1 bg-white rounded-lg shadow-md p-4">
-                <TasksForSelectedDay tasks={tasks} setTasks={setTasks}/>
+                <TasksForSelectedDay />
             </div>
 
             {/* Правая колонка (Progress и Analytics) */}
@@ -59,7 +56,7 @@ export default function MainPage() {
                 <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center">
                     <h2 className="text-lg font-bold font-serif mb-2">Progress</h2>
                     <div>
-                        <LineChart/>
+                        <LineChart />
                     </div>
                 </div>
 
@@ -67,7 +64,7 @@ export default function MainPage() {
                 <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center">
                     <h2 className="font-serif text-lg font-bold">Analytics</h2>
                     <div className="flex-grow">
-                        <PieChart/>
+                        <PieChart />
                     </div>
                 </div>
             </div>

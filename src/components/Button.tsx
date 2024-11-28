@@ -6,6 +6,7 @@ interface ButtonProps {
     onClick?: () => void;
     children: React.ReactNode;
     disabled?: boolean;
+    additionalStyles?: string;
 }
 
 const buttonStyles = {
@@ -20,7 +21,7 @@ export default function Button({
                                    onClick,
                                    children,
                                    disabled = false,
-                               }: ButtonProps){
+                               }: ButtonProps) {
     return (
         <button
             type={type}
