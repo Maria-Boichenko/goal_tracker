@@ -11,11 +11,13 @@ interface TasksForSelectedDayProps {
 }
 
 export default function TasksForSelectedDay({
-                                                tasks,
-                                                setTasks,
+
                                             }: TasksForSelectedDayProps) {
+    const { goals: tasks, setGoals: setTasks } = useTasks();
     const today = new Date().toISOString().split("T")[0]; // Сегодняшняя дата
     const todayTasks = tasks[today] || [];
+console.log('today', today, tasks, todayTasks);
+
 
     const handleDelete = (index: number) => {
         setTasks((prev) => {

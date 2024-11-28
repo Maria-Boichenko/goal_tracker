@@ -6,27 +6,27 @@ interface Option {
     icon?: React.ReactNode;
 }
 
-interface SelectProps {
-    value: string;
-    onChange: (value: string) => void;
+interface SelectProps<T> {
+    value: T;
+    onChange: (value: T) => void;
     options: Option[];
     label?: string;
     placeholder?: string;
 }
 
-export default function Select ({
+export default function Select<T> ({
                                     value,
                                     onChange,
                                     options,
                                     label,
                                     placeholder = "Select an option",
-                                }: SelectProps) {
+                                }: SelectProps<T>) {
     return (
         <div className="mb-4">
             {label && <label className="block font-serif font-medium mb-2">{label}</label>}
             <select
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
+                value={value as string}
+                onChange={(e) => onChange(e.target.value as T)}
                 className="w-full border border-grey-300 rounded-lg p-2"
             >
                 <option value="" disabled>

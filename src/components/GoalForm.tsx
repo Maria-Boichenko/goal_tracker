@@ -13,7 +13,7 @@ export default function GoalForm({onSave, onCancel}: GoalFormProps) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("Personal");
-    const [priority, setPriority] = useState("Medium");
+    const [priority, setPriority] = useState<Goal["priority"]>("Medium");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -44,7 +44,7 @@ export default function GoalForm({onSave, onCancel}: GoalFormProps) {
                     className="w-full border border-gray-300 rounded-lg p-2"
                 />
             </div>
-            <Select
+            <Select<string>
                 value={category}
                 onChange={setCategory}
                 options={[
@@ -55,7 +55,7 @@ export default function GoalForm({onSave, onCancel}: GoalFormProps) {
                 label="Category"
             />
 
-            <Select
+            <Select<Goal["priority"]>
                 value={priority}
                 onChange={setPriority}
                 options={[

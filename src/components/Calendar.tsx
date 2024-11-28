@@ -52,9 +52,11 @@ export default function Calendar({ onDateClick }: CalendarProps) {
             </div>
 
             <div className="grid grid-cols-7 gap-2 mt-2">
+                {/* <Day inactive={false} date={"2024-10-31"} /> */}
                 {daysInMonth.map((date) => (
                     <Day key={date} date={date} goals={goals[date] || []} openForm={openForm} />
                 ))}
+                {/* <Day inactive={false} date={"2024-12-01"} /> */}
             </div>
 
             {isFormOpen && selectedDate && (
