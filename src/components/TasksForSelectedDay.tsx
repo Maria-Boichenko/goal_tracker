@@ -5,22 +5,25 @@ import { FaPlus } from "react-icons/fa";
 import GoalListItem from "./GoalListItem";
 import GoalFormModal from "./GoalFormModal";
 
-export default function TasksForSelectedDay({ selectedDate }: { selectedDate: string }) {
+interface TasksForSelectedDayProps {
+    selectedDate: string;
+}
+
+export default function TasksForSelectedDay({ selectedDate }: TasksForSelectedDayProps) {
     const { goals, setGoals } = useTasks();
-    const today = new Date().toISOString().split("T")[0];
-    const todayGoals = goals[today] || [];
-    const [editedGoals, setEditedGoals] = useState<Goal | null>(null);
+    const [editedGoal, setEditedGoal] = useState<Goal | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddingGoal, setIsAddingGoal] = useState(false);
+
     const dayGoals = goals[selectedDate] || [];
 
     const handleAdd = () => {
-        setEditedGoals({
+        setEditedGoal({
             title: "",
             description: "",
             category: "",
             priority: "Medium",
-            date: today,
+            date: selectedDate,
         });
         setIsAddingGoal(true);
         setIsModalOpen(true);
@@ -28,67 +31,65 @@ export default function TasksForSelectedDay({ selectedDate }: { selectedDate: st
 
     const handleDelete = (index: number) => {
         setGoals((prev) => {
-            const updatedGoals = [...(prev[today] || [])];
+            const updatedGoals = [...(prev[selectedDate] || [])];
             updatedGoals.splice(index, 1);
-            return { ...prev, [today]: updatedGoals };
+            return { ...prev, [selectedDate]: updatedGoals };
         });
     };
 
     const handleEdit = (goal: Goal) => {
-        setEditedGoals(goal);
+        setEditedGoal(goal);
         setIsAddingGoal(false);
         setIsModalOpen(true);
     };
 
     const handleSave = (goal: Goal) => {
-        const originalDate = editedGoals?.date || today;
+        const originalDate = editedGoal?.date || selectedDate;
 
-        if (isAddingGoal) {
-            setGoals((prev) => ({
-                ...prev,
-                [goal.date || today]: [...(prev[goal.date || today] || []), goal],
-            }));
-        } else {
+        setGoals((prev) => {
+            const updatedGoals = { ...prev };
 
-            setGoals((prev) => {
-                const updatedGoals = { ...prev };
+            // Если дата изменилась, перемещаем задачу в новый день
+            if (originalDate !== goal.date) {
+                updatedGoals[originalDate] = (prev[originalDate] || []).filter(
+                    (g) => g.title !== editedGoal?.title
+                );
+            }
 
-                if (originalDate !== goal.date) {
-                    updatedGoals[originalDate] = (prev[originalDate] || []).filter(
-                        (g) => g.title !== editedGoals?.title
-                    );
-                }
-                updatedGoals[goal.date || today] = [
-                    ...(prev[goal.date || today] || []).filter((g) => g.title !== editedGoals?.title),
-                    goal,
-                ];
-                return updatedGoals;
-            });
-        }
+            // Обновляем задачи на новой дате
+            updatedGoals[goal.date || selectedDate] = [
+                ...(updatedGoals[goal.date || selectedDate] || []).filter(
+                    (g) => g.title !== editedGoal?.title
+                ),
+                goal,
+            ];
+
+            return updatedGoals;
+        });
+
         setIsModalOpen(false);
-        setEditedGoals(null);
+        setEditedGoal(null);
     };
-
 
     return (
         <div>
             {/* Заголовок с кнопкой добавления */}
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-bold font-serif">
-                    {isModalOpen && isAddingGoal ? "Add Goal" : `Goals for ${today}`}
+                     {selectedDate}
                 </h2>
                 <button
                     onClick={handleAdd}
                     className="text-blue-500 hover:text-blue-700 flex items-center"
                 >
                     <FaPlus className="mr-2" />
-
+                    Add Goal
                 </button>
             </div>
 
             {/* Список целей */}
-            {todayGoals.length === 0 ? (
-                <p className="text-gray-400">No goals for today</p>
+            {dayGoals.length === 0 ? (
+                <p className="text-gray-400">No goals for this day</p>
             ) : (
                 <ul className="list-disc pl-4">
                     {dayGoals.map((goal, index) => (
@@ -105,12 +106,11 @@ export default function TasksForSelectedDay({ selectedDate }: { selectedDate: st
             {/* Модальное окно для добавления/редактирования */}
             {isModalOpen && (
                 <GoalFormModal
-                    goal={editedGoals}
+                    goal={editedGoal}
                     onSave={handleSave}
                     onCancel={() => setIsModalOpen(false)}
                     isAddingGoal={isAddingGoal}
                 />
-
             )}
         </div>
     );
