@@ -82,7 +82,7 @@ export default function Calendar({ onDateClick }: CalendarProps) {
             </div>
 
             {/* Дни месяца */}
-            <div className="grid grid-cols-7 gap-2 mt-2">
+            <div className="grid grid-cols-7 gap-2 mt-4">
                 {/* Дни предыдущего месяца */}
                 {prevMonthDays.map((day) => (
                     <Day
