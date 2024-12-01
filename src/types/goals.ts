@@ -4,4 +4,5 @@ export interface Goal {
     description: string;
     category: string;
     priority: "High" | "Medium" | "Low";
+    date?: string;
 }
