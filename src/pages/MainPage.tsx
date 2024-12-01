@@ -47,7 +47,7 @@ export default function MainPage() {
 
             {/* Список задач */}
             <div className="col-span-1 bg-white rounded-lg shadow-md p-4">
-                <TasksForSelectedDay />
+                <TasksForSelectedDay selectedDate={selectedDate}  />
             </div>
 
             {/* Правая колонка (Progress и Analytics) */}
