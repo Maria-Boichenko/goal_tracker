@@ -1,37 +1,46 @@
-import React, {useState} from "react";
-import {Goal} from "../types/goals";
-import Button from "./Button"
+import React from "react";
+import { Goal } from "../types/goals";
+import Button from "./Button";
 import Select from "./Select";
 
 interface GoalFormProps {
-    onSave: (goal: Goal) => void;
+    formData: Goal;
+    onFormDataChange: (updatedData: Partial<Goal>) => void;
+    onSave: () => void;
     onCancel: () => void;
-    date: string;
 }
 
-export default function GoalForm({onSave, onCancel}: GoalFormProps) {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [category, setCategory] = useState("Personal");
-    const [priority, setPriority] = useState<Goal["priority"]>("Medium");
+export default function GoalForm({ formData, onFormDataChange, onSave, onCancel }: GoalFormProps) {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        onFormDataChange({ [name]: value });
+    };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        onSave({title, description, category, priority});
+    const handlePriorityChange = (value: Goal["priority"]) => {
+        onFormDataChange({ priority: value });
+    };
+
+    const handleCategoryChange = (value: string) => {
+        onFormDataChange({ category: value });
     };
 
     return (
         <form
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+                e.preventDefault();
+                onSave();
+            }}
             className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto"
         >
-            <h2 className=" font-serif text-xl font-bold mb-4">Add Goal</h2>
+            <h2 className="font-serif text-xl font-bold mb-4">Goal Details</h2>
             <div className="mb-4">
                 <label className="font-serif block font-medium mb-2">Title</label>
                 <input
                     type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    placeholder="Enter your goal title"
                     className="w-full border border-gray-300 rounded-lg p-2"
                     required
                 />
@@ -39,36 +48,48 @@ export default function GoalForm({onSave, onCancel}: GoalFormProps) {
             <div className="mb-4">
                 <label className="font-serif block font-medium mb-2">Description</label>
                 <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Describe your goal"
                     className="w-full border border-gray-300 rounded-lg p-2"
                 />
             </div>
             <Select<string>
-                value={category}
-                onChange={setCategory}
+                value={formData.category}
+                onChange={handleCategoryChange}
                 options={[
-                    {value: "Health", label: "Health"},
-                    {value: "Work", label: "Work"},
-                    {value: "Personal", label: "Personal"},
+                    { value: "Health", label: "Health" },
+                    { value: "Work", label: "Work" },
+                    { value: "Personal", label: "Personal" },
                 ]}
                 label="Category"
             />
-
             <Select<Goal["priority"]>
-                value={priority}
-                onChange={setPriority}
+                value={formData.priority}
+                onChange={handlePriorityChange}
                 options={[
-                    {value: "High", label:"High"},
-                    {value: "Medium", label: "Medium"},
-                    {value: "Low", label: "Low"},
-            ]}
-            label="Priority"
+                    { value: "High", label: "High" },
+                    { value: "Medium", label: "Medium" },
+                    { value: "Low", label: "Low" },
+                ]}
+                label="Priority"
             />
-            <div className="font-serif flex justify-end" style={{gap: "12px"}}>
+            <div className="mb-4">
+                <label className="font-serif block font-medium mb-2">Date</label>
+                <input
+                    type="date"
+                    name="date"
+                    value={formData.date || ""}
+                    onChange={handleChange}
+                    placeholder="YYYY-MM-DD"
+                    className="w-full border border-gray-300 rounded-lg p-2"
+                />
+            </div>
+            <div className="font-serif flex justify-end" style={{ gap: "12px" }}>
                 <Button variant="secondary" onClick={onCancel}>
-                   Cancel
-               </Button>
+                    Cancel
+                </Button>
                 <Button variant="primary" type="submit">
                     Save
                 </Button>

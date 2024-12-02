@@ -75,7 +75,7 @@ export default function TasksForSelectedDay({ selectedDate }: TasksForSelectedDa
         <div>
             {/* Заголовок с кнопкой добавления */}
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-bold font-serif">
+                <h2 className="text-lg font-bold">
                      {selectedDate}
                 </h2>
                 <button
