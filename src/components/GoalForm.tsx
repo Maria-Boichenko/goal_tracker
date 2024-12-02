@@ -1,6 +1,8 @@
 import React from "react";
 import { Goal } from "../types/goals";
 import Button from "./Button";
+import { InputField } from "./InputField";
+import { TextareaField } from "./TextareaField";
 import Select from "./Select";
 
 interface GoalFormProps {
@@ -16,14 +18,6 @@ export default function GoalForm({ formData, onFormDataChange, onSave, onCancel 
         onFormDataChange({ [name]: value });
     };
 
-    const handlePriorityChange = (value: Goal["priority"]) => {
-        onFormDataChange({ priority: value });
-    };
-
-    const handleCategoryChange = (value: string) => {
-        onFormDataChange({ category: value });
-    };
-
     return (
         <form
             onSubmit={(e) => {
@@ -33,31 +27,27 @@ export default function GoalForm({ formData, onFormDataChange, onSave, onCancel 
             className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto"
         >
             <h2 className="text-xl font-bold mb-4">Goal Details</h2>
-            <div className="mb-4">
-                <label className="block font-medium mb-2">Title</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    placeholder="Enter your goal title"
-                    className="w-full border border-gray-300 rounded-lg p-2"
-                    required
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block font-medium mb-2">Description</label>
-                <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    placeholder="Describe your goal"
-                    className="w-full border border-gray-300 rounded-lg p-2"
-                />
-            </div>
+
+            <InputField
+                label="Title"
+                type="text"
+                name="title"
+                value={formData.title}
+                placeholder="Enter your goal title"
+                onChange={handleChange}
+            />
+
+            <TextareaField
+                label="Description"
+                name="description"
+                value={formData.description}
+                placeholder="Describe your goal"
+                onChange={handleChange}
+            />
+
             <Select<string>
                 value={formData.category}
-                onChange={handleCategoryChange}
+                onChange={(value) => onFormDataChange({ category: value })}
                 options={[
                     { value: "Health", label: "Health" },
                     { value: "Work", label: "Work" },
@@ -65,9 +55,10 @@ export default function GoalForm({ formData, onFormDataChange, onSave, onCancel 
                 ]}
                 label="Category"
             />
+
             <Select<Goal["priority"]>
                 value={formData.priority}
-                onChange={handlePriorityChange}
+                onChange={(value) => onFormDataChange({ priority: value })}
                 options={[
                     { value: "High", label: "High" },
                     { value: "Medium", label: "Medium" },
@@ -75,17 +66,15 @@ export default function GoalForm({ formData, onFormDataChange, onSave, onCancel 
                 ]}
                 label="Priority"
             />
-            <div className="mb-4">
-                <label className="block font-medium mb-2">Date</label>
-                <input
-                    type="date"
-                    name="date"
-                    value={formData.date || ""}
-                    onChange={handleChange}
-                    placeholder="YYYY-MM-DD"
-                    className="w-full border border-gray-300 rounded-lg p-2"
-                />
-            </div>
+
+            <InputField
+                label="Date"
+                type="date"
+                name="date"
+                value={formData.date || ""}
+                onChange={handleChange}
+            />
+
             <div className="flex justify-end" style={{ gap: "12px" }}>
                 <Button variant="secondary" onClick={onCancel}>
                     Cancel
