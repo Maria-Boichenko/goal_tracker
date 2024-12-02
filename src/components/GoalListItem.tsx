@@ -3,16 +3,16 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { Goal } from "../types/goals";
 
 interface GoalListItemProps {
-    goal: Goal; // Полная цель, передаваемая из основного файла
-    onEdit: (goal: Goal) => void; // Коллбэк для редактирования
-    onDelete: () => void; // Коллбэк для удаления
+    goal: Goal;
+    onEdit: (goal: Goal) => void;
+    onDelete: () => void;
 }
 
 export default function GoalListItem({ goal, onEdit, onDelete }: GoalListItemProps) {
     return (
         <li className="mb-2 flex justify-between items-center">
             <div>
-                <span className="font-bold">{goal.title}</span> -{" "}
+                <span className="">{goal.title}</span> -{" "}
                 <span
                     className={`text-sm ${
                         goal.priority === "High"

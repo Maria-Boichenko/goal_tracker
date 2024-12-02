@@ -32,9 +32,9 @@ export default function GoalForm({ formData, onFormDataChange, onSave, onCancel 
             }}
             className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto"
         >
-            <h2 className="font-serif text-xl font-bold mb-4">Goal Details</h2>
+            <h2 className="text-xl font-bold mb-4">Goal Details</h2>
             <div className="mb-4">
-                <label className="font-serif block font-medium mb-2">Title</label>
+                <label className="block font-medium mb-2">Title</label>
                 <input
                     type="text"
                     name="title"
@@ -46,7 +46,7 @@ export default function GoalForm({ formData, onFormDataChange, onSave, onCancel 
                 />
             </div>
             <div className="mb-4">
-                <label className="font-serif block font-medium mb-2">Description</label>
+                <label className="block font-medium mb-2">Description</label>
                 <textarea
                     name="description"
                     value={formData.description}
@@ -76,7 +76,7 @@ export default function GoalForm({ formData, onFormDataChange, onSave, onCancel 
                 label="Priority"
             />
             <div className="mb-4">
-                <label className="font-serif block font-medium mb-2">Date</label>
+                <label className="block font-medium mb-2">Date</label>
                 <input
                     type="date"
                     name="date"
@@ -86,7 +86,7 @@ export default function GoalForm({ formData, onFormDataChange, onSave, onCancel 
                     className="w-full border border-gray-300 rounded-lg p-2"
                 />
             </div>
-            <div className="font-serif flex justify-end" style={{ gap: "12px" }}>
+            <div className="flex justify-end" style={{ gap: "12px" }}>
                 <Button variant="secondary" onClick={onCancel}>
                     Cancel
                 </Button>
