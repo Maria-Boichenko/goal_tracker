@@ -18,6 +18,7 @@ export default function GoalFormModal({ goal, onSave, onCancel, isAddingGoal }: 
         category: goal?.category || "Personal",
         priority: goal?.priority || "Medium",
         date: goal?.date || today,
+        completed: goal?.completed || false,
     });
 
     const handleFormDataChange = (updatedData: Partial<Goal>) => {

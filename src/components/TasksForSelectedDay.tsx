@@ -14,7 +14,8 @@ export default function TasksForSelectedDay({ selectedDate }: TasksForSelectedDa
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddingGoal, setIsAddingGoal] = useState(false);
 
-    const { goals, handleAdd, handleDelete, handleEdit, handleSave } = useGoalActions(selectedDate);
+    const { goals, handleToggle, handleAdd, handleDelete, handleEdit, handleSave } =
+        useGoalActions(selectedDate);
 
     const dayGoals = goals[selectedDate] || [];
 
@@ -40,6 +41,7 @@ export default function TasksForSelectedDay({ selectedDate }: TasksForSelectedDa
                             goal={goal}
                             onEdit={(goal) => handleEdit(goal, setEditedGoal, setIsAddingGoal, setIsModalOpen)}
                             onDelete={() => handleDelete(index)}
+                            onToggle={handleToggle}
                         />
                     ))}
                 </ul>

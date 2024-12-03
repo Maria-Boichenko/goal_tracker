@@ -37,7 +37,7 @@ export default function MainPage() {
 
                 {/* Analytics */}
                 <div className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center">
-                    <h2 className="font-serif text-lg font-bold">Analytics</h2>
+                    <h2 className="text-lg font-bold">Analytics</h2>
                     <div className="flex-grow">
                         <PieChart />
                     </div>

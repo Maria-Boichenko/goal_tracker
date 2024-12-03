@@ -5,4 +5,5 @@ export interface Goal {
     category: string;
     priority: "High" | "Medium" | "Low";
     date?: string;
+    completed: boolean;
 }
