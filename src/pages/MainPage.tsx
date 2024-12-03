@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Calendar from "../components/Calendar";
-import LineChart from "../components/LineChart";
+import LineChart from "../components/BarChart";
 import PieChart from "../components/PieChart";
-import TasksForSelectedDay from "../components/TasksForSelectedDay";
+import GoalsForTheDay from "../components/GoalsForTheDay";
 
 
 export default function MainPage() {
@@ -22,7 +22,7 @@ export default function MainPage() {
 
             {/* Список задач */}
             <div className="col-span-1 bg-white rounded-lg shadow-md p-4">
-                <TasksForSelectedDay selectedDate={selectedDate}  />
+                <GoalsForTheDay selectedDate={selectedDate}  />
             </div>
 
             {/* Правая колонка (Progress и Analytics) */}

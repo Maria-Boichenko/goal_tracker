@@ -9,7 +9,7 @@ interface TasksForSelectedDayProps {
     selectedDate: string;
 }
 
-export default function TasksForSelectedDay({ selectedDate }: TasksForSelectedDayProps) {
+export default function GoalsForTheDay({ selectedDate }: TasksForSelectedDayProps) {
     const [editedGoal, setEditedGoal] = useState<Goal | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddingGoal, setIsAddingGoal] = useState(false);

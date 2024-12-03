@@ -8,9 +8,9 @@ interface GoalListProps {
 
 export function GoalList({ goals, maxDisplay = 2 }: GoalListProps) {
     const priorityColors: { [key: string]: string } = {
-        High: "bg-red-500 text-white",
-        Medium: "bg-yellow-400 text-gray-800",
-        Low: "bg-green-400 text-gray-800",
+        High: "bg-red-500 text-gray-800",
+        Medium: "bg-yellow-500 text-gray-800",
+        Low: "bg-green-500 text-gray-800",
     };
 
     const truncateText = (text: string, maxLength: number) =>
