@@ -7,9 +7,9 @@ interface GoalStatusToggleProps {
 }
 
 const priorityColors: { [key: string]: string } = {
-    High: "bg-red-500 text-gray-800 border-red-500",
-    Medium: "bg-yellow-500 text-gray-800 border-yellow-400",
-    Low: "bg-green-500 text-gray-800 border-green-400",
+    High: "bg-red-300 text-gray-800 border-red-500",
+    Medium: "bg-yellow-300 text-gray-800 border-yellow-500",
+    Low: "bg-green-300 text-gray-800 border-green-500",
 };
 
 export default function GoalStatusToggle({ goal, onToggle }: GoalStatusToggleProps) {
